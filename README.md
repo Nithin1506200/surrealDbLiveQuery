@@ -1,7 +1,23 @@
-- surreal db viewer : https://surrealist.app/
+# Surreal db with live query and authentication
 
-- start local db : `yarn db:start`
-- start migration of local db : `yarn db:migrate`
-- db terminal
+- make single namespace , memory layer live query
 
-- start local react : `yarn dev`
+- db : [db](/db/readme.md)
+
+## Tech stacks
+
+- Frontend : React , Vite , Typescript
+- Backend : Rust , actix-web
+- Database : SurrealDb
+
+## enums
+
+- status : `NEW` | `SUCCESS` | `FAILED`
+
+## Default users
+
+| user name | password | email                | role   | access                |
+| --------- | -------- | -------------------- | ------ | --------------------- |
+| root      | root     | <root@surreal.com>   | admin  | \*                    |
+| viewer    | viewer   | <viewer@surreal.com> | viewer | ns:"test" db : "test" |
+|           |
