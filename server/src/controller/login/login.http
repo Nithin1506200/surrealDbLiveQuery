@@ -1,1 +1,8 @@
-GET http://127.0.0.1:8080
+
+POST http://127.0.0.1:8080/api/login
+Accept: application/json
+
+{
+    "email":"user1@company_x.com",
+    "password":"user1@123"
+}

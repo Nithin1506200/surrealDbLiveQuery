@@ -9,6 +9,7 @@ pub enum Merchants {
     PayTM,
     Paypal,
     PhonePe,
+    Root,
 }
 impl Merchants {
     fn make_table_id(&self) -> String {
@@ -36,18 +37,18 @@ impl ToString for Merchants {
 impl FromStr for Merchants {
     type Err = ();
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let x: Result<Merchants, &str> = serde_json::from_str(s).expect("hello");
         match s {
             "GooglePay" => Ok(Merchants::GooglePay),
             "PayTM" => Ok(Merchants::PayTM),
             "Paypal" => Ok(Merchants::Paypal),
             "PhonePe" => Ok(Merchants::PhonePe),
+            "Root" => Ok(Merchants::Root),
             _ => Err(()),
         }
     }
 }
 #[cfg(test)]
-mod Test {
+mod test {
     use super::Merchants;
 
     #[test]
@@ -55,5 +56,7 @@ mod Test {
         let google = r#" "GooglePay" "#;
         let x: Merchants = serde_json::from_str(google).unwrap();
         println!("{:#?}", x);
+        let google = "GooglePay";
+        let x = google.parse::<Merchants>();
     }
 }

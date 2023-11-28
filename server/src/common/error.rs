@@ -6,8 +6,9 @@ use actix_web::{
     HttpResponse,
 };
 use derive_more::{Display, Error};
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
 pub struct AppError {
     pub cause: Option<String>,
     pub message: Option<String>,
@@ -19,7 +20,7 @@ impl fmt::Display for AppError {
     }
 }
 
-#[derive(Debug, Display, Error)]
+#[derive(Debug, Display, Error, Serialize)]
 pub enum AppErrorType {
     Unauthorized,
     InternalServerError,
@@ -41,7 +42,7 @@ impl error::ResponseError for AppError {
     fn error_response(&self) -> HttpResponse {
         HttpResponse::build(self.status_code())
             .insert_header(ContentType::json())
-            .json(&self.to_string())
+            .json(&self)
     }
 }
 impl From<surrealdb::Error> for AppError {

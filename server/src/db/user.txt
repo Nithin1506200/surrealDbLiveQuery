@@ -1,0 +1,1 @@
+Object {"email": String("nithin@gmail.com"), "id": Object {"tb": String("users"), "id": Object {"String": String("9edus9nf0ijmbd64v84b")}}, "merchant_id": String("Paypal"), "name": String("nithin"), "pass": String("$argon2id$v=19$m=19456,t=2,p=1$2V5V+IMdL4u7nxd0P5IIyQ$r4Vl1zJPHXy4ar4/3RwNV4tq0YWpe2mGyrxmqFdxdJU")}

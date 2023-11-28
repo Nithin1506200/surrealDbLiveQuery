@@ -1,33 +1,30 @@
 use crate::{
-    auth_service::get_token,
-    common::{
-        self,
-        error::{AppError, AppErrorType},
-        merchant::Merchants,
-    },
-    db::{self, users::get_user_by_email},
+    auth_service::get_token_from_user,
+    common::error::{AppError, AppErrorType},
+    db::{self},
 };
-use actix_web::{get, post, web, Result as ActixResult};
+use actix_web::{post, web, Result as ActixResult};
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct LoginRequest {
-    email: String,
-    password: String,
+    pub email: String,
+    pub password: String,
 }
 
 #[derive(Serialize, Deserialize)]
 pub struct LoginResponse {
-    token: String,
+    pub token: String,
 }
 #[post("/login")]
 pub async fn login_controller(
     body: web::Json<LoginRequest>,
 ) -> ActixResult<web::Json<LoginResponse>, AppError> {
+    println!("-----*******Fsdfsafa");
     let users = db::users::validate(&body.email, &body.password).await?;
     if users.0 {
         let user = users.1[0].clone();
-        let token = get_token(&user);
+        let token = get_token_from_user(&user);
         Ok(web::Json(LoginResponse {
             token: token.clone(),
         }))

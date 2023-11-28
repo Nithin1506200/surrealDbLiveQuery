@@ -1,6 +1,9 @@
 #![allow(dead_code)]
+mod merchants;
 pub mod scopes;
 pub mod users;
+use std::fmt;
+
 use once_cell::sync::Lazy;
 use serde::{Deserialize, Serialize};
 use surrealdb::{
@@ -36,14 +39,38 @@ pub async fn initdb() -> surrealdb::Result<()> {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub enum Namespace {
+    #[serde(rename(serialize = "test", deserialize = "test"))]
     Test,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum Db {
+    #[serde(rename(serialize = "test", deserialize = "test"))]
     Test,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug)]
 pub enum Tables {
     Users,
     Merchants,
+}
+impl fmt::Display for Tables {
+    fn fmt(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+        write!(formatter, "{}", format!("{:?}", self).to_lowercase())
+    }
+}
+pub trait DbServices {
+    fn get_table_name() -> String;
+    fn create(&self);
+    fn delete_using_id(id: &str);
+    fn get_();
+    fn update_using_id(&self);
+}
+#[cfg(test)]
+mod test {
+    use crate::db::Tables;
+
+    #[test]
+    fn tables() {
+        println!("{:?}", Tables::Users.to_string());
+        // assert!(format!("{:?}", Tables::Users.to_string()) == "users")
+    }
 }

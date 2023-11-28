@@ -1,0 +1,11 @@
+
+
+POST http://127.0.0.1:8080/api/signup
+Accept: application/json
+
+{
+ "email": "nithin@gmail.com",
+ "name": "nithin",
+ "password": "123",
+ "merchant_id": "GooglePay"
+}

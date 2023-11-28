@@ -1,50 +1,53 @@
 `surreal start --user root --pass root memory`
+
 `surreal import --conn http://localhost:8000 --user root --pass root --ns test --db test db/surreal_deal_v1.surql`
 
 ## architecture
 
-- Namespace : liveQuery
-- db : liveQuery
+- Namespace : test
+- db : test
 
 ## tables
 
-- merchants
 - users
 - order
 - transaction
 
-### merchants - schemafull
+### merchant - schemafull
 
-| column | datatype                            | comments |
-| ------ | ----------------------------------- | -------- |
-| id     | CustomId:`merchant:<merchant_name>` | -------- |
-| email  | string::is::email                   | email    |
+| column | datatype                            | Index                   |
+| ------ | ----------------------------------- | ----------------------- |
+| email  | string::is::email                   | adminEmailIndex::unique |
+| id     | CustomId:`merchant:<merchant_name>` |                         |
+| name   | string                              | adminNameIndex::unique  |
 
 ### users
 
-| column      | datatype             | Comments |
-| ----------- | -------------------- | -------- |
-| merchant_id | RecordID:`merchants` |          |
-| email       | string::is::email    | unique   |
-| pass        |                      |          |
+| column      | datatype            | Index                  |
+| ----------- | ------------------- | ---------------------- |
+| email       | string::is::email   | userEmailIndex::unique |
+| merchant_id | RecordID:`merchant` | userAdminIndex         |
+| name        | String              |                        |
+| pass        | String              |                        |
 
 ### order_reference
 
 | column     | datatype    | Comments |
 | ---------- | ----------- | -------- |
-| status     | ENUM:STATUS |          |
 | amount     | float       |          |
 | created_at | datestring  |          |
+| status     | ENUM:STATUS |          |
+| admin_id   |             |          |
 | updated_at | datestring  |          |
 
 ### transactions
 
 | column     | datatype                   | comments |
 | ---------- | -------------------------- | -------- |
-| status     | Enum:STATUS                |          |
-| order_id   | RecordID:`order_reference` |          |
 | amount     | float                      |          |
 | created_at | datestring                 |          |
+| order_id   | RecordID:`order_reference` |          |
+| status     | Enum:STATUS                |          |
 | updated_at | datestring                 |          |
 
 \*\* node signup should be not allowed from external
