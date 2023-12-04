@@ -20,7 +20,6 @@ pub struct LoginResponse {
 pub async fn login_controller(
     body: web::Json<LoginRequest>,
 ) -> ActixResult<web::Json<LoginResponse>, AppError> {
-    println!("-----*******Fsdfsafa");
     let users = db::users::validate(&body.email, &body.password).await?;
     if users.0 {
         let user = users.1[0].clone();
