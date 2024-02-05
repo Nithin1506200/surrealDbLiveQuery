@@ -1,8 +1,8 @@
 
-POST http://127.0.0.1:8080/api/login
-Accept: application/json
+POST http://127.0.0.1:8001/api/login
+Content-Type: application/json;charset=UTF-8
 
 {
-    "email":"user1@company_x.com",
+    "email":"user1@companyx.com",
     "password":"user1@123"
 }

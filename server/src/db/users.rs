@@ -1,4 +1,4 @@
-use crate::common::{self, error::AppError};
+use crate::common::error::AppError;
 use serde::{Deserialize, Serialize};
 use surrealdb::opt::RecordId;
 
@@ -8,7 +8,7 @@ pub struct User {
     pub name: String,
     pub email: String,
     pub pass: String,
-    pub merchant_id: RecordId,
+    pub account_id: RecordId,
     pub id: RecordId,
 }
 
@@ -44,13 +44,12 @@ pub async fn get_user_by_email(email: &str) -> actix_web::Result<User, ()> {
 pub async fn validate(email: &str, pass: &str) -> actix_web::Result<(bool, Vec<User>), AppError> {
     let mut response = DB
         .query(format!(
-            "SELECT * FROM {} WHERE email = {:?} AND crypto::argon2::compare(pass,{:?})",
+            "SELECT * FROM {} WHERE email = {:?} AND crypto::argon2::compare(pass,{:?}) LIMIT 1",
             Tables::Users.to_string(),
             email,
             pass
         ))
         .await?;
-    println!("user {:?}", response);
     let user: Vec<User> = response.take(0)?;
 
     Ok((user.len() == 1, user))

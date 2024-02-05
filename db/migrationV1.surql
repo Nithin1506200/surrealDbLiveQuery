@@ -1,11 +1,11 @@
 OPTION IMPORT;
 
 -- merchants
-DEFINE TABLE merchants SCHEMAFULL PERMISSIONS NONE;
-DEFINE FIELD email ON merchants TYPE string ASSERT string::is::email($value);
-DEFINE FIELD name ON merchants TYPE string ASSERT $value!=NONE;
+DEFINE TABLE account SCHEMAFULL PERMISSIONS NONE;
+DEFINE FIELD email ON account TYPE string ASSERT string::is::email($value);
+DEFINE FIELD name ON account TYPE string ASSERT $value!=NONE;
 -- indexes
-DEFINE INDEX adminEmailIndex ON merchants COLUMNS email UNIQUE;
+DEFINE INDEX adminEmailIndex ON account COLUMNS email UNIQUE;
 
 
 -- users ---------
@@ -20,24 +20,24 @@ DEFINE INDEX userEmailIndex ON users COLUMNS email UNIQUE;
 DEFINE INDEX userMerchantIndex ON users COLUMNS merchant_id;
 
 BEGIN TRANSACTION;
-UPDATE merchant:company_x content {
-    email:"company_x@mail.com",
-    name:"Company X limited"
+UPDATE account:account1 content {
+    email:"account1@mail.com",
+    name:"Account 1 limited"
 };
-UPDATE merchant:company_y content {
-    email:"company_y@mail.com",
-    name:"Company Y limited"
+UPDATE account:account2 content {
+    email:"account2@mail.com",
+    name:"Account 2 limited"
 };
 CREATE users SET 
-    email="user1@company_x.com",
+    email="user1@account1.com",
     name="User 1",
     pass=crypto::argon2::generate("user1@123"),
-    merchant_id=merchant:company_x
+    merchant_id=account:account1
 ;
 CREATE users SET 
-    email="user2@company_x.com",
+    email="user2@account2.com",
     name="User 2",
     pass=crypto::argon2::generate("user2@123"),
-    merchant_id=merchant:company_y
+    merchant_id=account:account2
 ;
 COMMIT TRANSACTION;

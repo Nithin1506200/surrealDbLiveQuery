@@ -10,44 +10,23 @@
 ## tables
 
 - users
-- order
-- transaction
+- groups
+- messages
 
-### merchant - schemafull
+### users - SCHEMAFULL
 
-| column | datatype                            | Index                   |
-| ------ | ----------------------------------- | ----------------------- |
-| email  | string::is::email                   | adminEmailIndex::unique |
-| id     | CustomId:`merchant:<merchant_name>` |                         |
-| name   | string                              | adminNameIndex::unique  |
+| column | datatype          | Index                  |
+| ------ | ----------------- | ---------------------- |
+| id     | primary Id        |                        |
+| email  | string::is::email | userEmailIndex::unique |
+| name   | String            |                        |
+| pass   | String            |                        |
 
-### users
+### groups - SCHEMAFULL
 
-| column      | datatype            | Index                  |
-| ----------- | ------------------- | ---------------------- |
-| email       | string::is::email   | userEmailIndex::unique |
-| merchant_id | RecordID:`merchant` | userAdminIndex         |
-| name        | String              |                        |
-| pass        | String              |                        |
-
-### order_reference
-
-| column     | datatype    | Comments |
-| ---------- | ----------- | -------- |
-| amount     | float       |          |
-| created_at | datestring  |          |
-| status     | ENUM:STATUS |          |
-| admin_id   |             |          |
-| updated_at | datestring  |          |
-
-### transactions
-
-| column     | datatype                   | comments |
-| ---------- | -------------------------- | -------- |
-| amount     | float                      |          |
-| created_at | datestring                 |          |
-| order_id   | RecordID:`order_reference` |          |
-| status     | Enum:STATUS                |          |
-| updated_at | datestring                 |          |
-
-\*\* node signup should be not allowed from external
+| column      | datatype              | Index |
+| ----------- | --------------------- | ----- |
+| id          | primary               |       |
+| name        | string::len() <=30    |       |
+| users       | set`<RecordId:users>` |       |
+| description | string::len() <=200   |       |

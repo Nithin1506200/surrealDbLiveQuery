@@ -1,8 +1,7 @@
+use super::{Db, DB};
 use surrealdb::opt::RecordId;
 
-use super::{Db, DB};
-
-pub struct Merchants {
+pub struct Accounts {
     email: String,
     id: RecordId,
     name: String,

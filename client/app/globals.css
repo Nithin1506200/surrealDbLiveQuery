@@ -15,7 +15,12 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
-
+body,
+html {
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+}
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(

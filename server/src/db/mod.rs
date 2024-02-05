@@ -1,5 +1,5 @@
 #![allow(dead_code)]
-mod merchants;
+mod accounts;
 pub mod scopes;
 pub mod users;
 use std::fmt;

@@ -19,6 +19,7 @@ chrono = "0.4.31"
 env_logger = "0.10.0"
 cargo-watch = "8.4.1"
 dotenv = "*"
+actix-cors = "0.6.5"
 
 # [build]
 # rustflags = ["-Z", "threads=8"]

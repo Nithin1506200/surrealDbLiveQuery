@@ -1,12 +1,12 @@
-use std::fmt;
-
+#![allow(dead_code)]
 use actix_web::{
     error,
     http::{header::ContentType, StatusCode},
     HttpResponse,
 };
 use derive_more::{Display, Error};
-use serde::{Deserialize, Serialize};
+use serde::Serialize;
+use std::fmt;
 
 #[derive(Debug, Serialize)]
 pub struct AppError {

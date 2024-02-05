@@ -22,9 +22,39 @@ Step 3 : start FE
 
 ## Tech stacks
 
-- Frontend : React , Vite , Typescript
+- Frontend : Nextjs, Tailwind , Typescript
 - Backend : Rust , actix-web
 - Database : SurrealDb
+
+- fe : `localhost:3000`
+- be : `localhost:8001`
+- db : `localhost:8000`
+
+## start project
+
+1. db :
+
+```sh
+    surreal start --user root --pass root memory
+    surreal import --conn http://localhost:8000 --user root --pass root --ns test --db test db/migrationV1.surql
+```
+
+- connect : https://surrealist.app/
+
+2. BE :
+
+```sh
+    cd server
+    cargo run
+```
+
+3. FE :
+
+```sh
+    cd client
+```
+
+- open : http://localhost:3000/
 
 ## enums
 
